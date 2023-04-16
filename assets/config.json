@@ -1,0 +1,68 @@
+{
+  "announcementBanner": {
+    "active": true,
+    "message": "Get free delivery on orders over $100"
+  },
+  "companyName": "Lemonade Stand",
+  "footerMapping": [
+    {
+      "sectionHeader": "Support",
+      "subset": [
+        {
+          "title": "Returns & Exchanges",
+          "url": "#"
+        },
+        {
+          "title": "Product Help",
+          "url": "#"
+        },
+        {
+          "title": "Payments",
+          "url": "#"
+        },
+        {
+          "title": "Shipping",
+          "url": "#"
+        }
+      ]
+    },
+    {
+      "sectionHeader": "Company",
+      "subset": [
+        {
+          "title": "About us",
+          "url": "#"
+        },
+        {
+          "title": "Blog",
+          "url": "#"
+        },
+        {
+          "title": "Press",
+          "url": "#"
+        }
+      ]
+    },
+    {
+      "sectionHeader": "Legal",
+      "subset": [
+        {
+          "title": "Privacy Policy",
+          "url": "#"
+        },
+        {
+          "title": "Terms & Conditions",
+          "url": "#"
+        }
+      ]
+    }
+  ],
+  "limitToUSA": true,
+  "showTaxes": false,
+  "socials": {
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "youtube": ""
+  }
+}
