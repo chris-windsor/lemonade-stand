@@ -1,9 +1,9 @@
-function isAuthenticated() {
-  return false
-}
+import {useUserStore} from "~/stores/user";
 
 export default defineNuxtRouteMiddleware((to, from) => {
-  if ((to.meta.layout === "profile" || to.meta.layout === "admin") && !isAuthenticated()) {
-    return navigateTo('/auth/signin')
+  const userStore = useUserStore();
+
+  if ((to.meta.layout === "profile" || to.meta.layout === "admin") && !userStore.token.length) {
+    return '/auth/signin';
   }
 })
