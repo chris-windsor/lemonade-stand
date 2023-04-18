@@ -73,7 +73,7 @@ const submitRegister = async () => {
   if (form.pending) return;
   form.pending = true;
 
-  await $fetch('http://127.0.0.1:4567/api/auth/register', {
+  await $fetch('/api/auth/register', {
     method: 'POST',
     body: {
       name: form.credentials.name,

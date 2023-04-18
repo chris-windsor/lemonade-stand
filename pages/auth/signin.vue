@@ -58,7 +58,7 @@ definePageMeta({
   layout: "store"
 })
 
-const router = useRouter();
+const router = useRouter()
 const userStore = useUserStore()
 
 const form = reactive({
@@ -75,7 +75,7 @@ const submitLogin = async () => {
     if (form.pending) return;
     form.pending = true;
 
-    const loginResponse = await $fetch('http://127.0.0.1:4567/api/auth/login', {
+    const loginResponse = await $fetch('/api/auth/login', {
         method: 'POST',
         body: {
             email: form.credentials.email,

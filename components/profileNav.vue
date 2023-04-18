@@ -64,7 +64,7 @@ const router = useRouter();
 const userStore = useUserStore()
 
 const logout = async () => {
-    await $fetch('http://127.0.0.1:4567/api/auth/logout', {
+    await $fetch('/api/auth/logout', {
         method: 'GET',
         headers: {
             authorization: `Bearer ${userStore.token}`
