@@ -63,6 +63,17 @@ import {useUserStore} from "~/stores/user";
 const router = useRouter();
 const userStore = useUserStore()
 
+onMounted(() => {
+    $fetch('/api/users/me', {
+        method: 'GET',
+        headers: {
+            authorization: `Bearer ${userStore.token}`
+        }
+    }).catch(() => {
+       logout();
+    });
+})
+
 const logout = async () => {
     await $fetch('/api/auth/logout', {
         method: 'GET',

@@ -3,7 +3,7 @@
         <div class="mx-auto max-w-7xl py-8 sm:py-10 px-6 lg:px-8">
             <div class="mx-auto max-w-2xl lg:text-center">
                 <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Good
-                    {{ $dayjs().hour() > 12 ? "Afternoon" : "Morning" }} Chris!</p>
+                    {{ greeting() }}</p>
                 <p class="mt-6 text-lg leading-8 text-gray-600">We appreciate you coming back to the shop. Let us know
                     if theres
                     anything we can do to help!</p>
@@ -39,6 +39,17 @@ import {ArrowUturnLeftIcon, ChatBubbleLeftRightIcon, CheckBadgeIcon} from '@hero
 definePageMeta({
   layout: "profile"
 })
+
+const greeting = () => {
+    const currentHour = $dayjs().hour();
+    if (currentHour < 12) {
+        return "Morning"
+    } else if (currentHour > 12 && currentHour < 18) {
+        return "Afternoon"
+    } else {
+        return "Evening"
+    }
+}
 
 const features = [
   {
