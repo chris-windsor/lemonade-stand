@@ -286,10 +286,10 @@
                                     <div class="flex items-center lg:ml-8">
                                         <div class="flex space-x-8">
                                             <div class="lg:flex">
-                                                <NuxtLink class="-m-2 p-2 text-gray-400 hover:text-gray-500" to="/">
-                                                    <span class="sr-only">Back to store</span>
+                                                <a class="-m-2 p-2 text-gray-400 hover:text-gray-500" @click.prevent="logout">
+                                                    <span class="sr-only">Logout</span>
                                                     <ArrowRightOnRectangleIcon aria-hidden="true" class="h-6 w-6"/>
-                                                </NuxtLink>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -320,7 +320,33 @@ import {
     TransitionChild,
     TransitionRoot,
 } from '@headlessui/vue'
-import {Bars3Icon, MagnifyingGlassIcon, XMarkIcon} from '@heroicons/vue/24/outline'
+import {ArrowRightOnRectangleIcon, Bars3Icon, MagnifyingGlassIcon, XMarkIcon} from '@heroicons/vue/24/outline'
+import {useUserStore} from "~/stores/user";
+
+const router = useRouter();
+const userStore = useUserStore()
+
+onMounted(() => {
+    $fetch('/api/users/me', {
+        method: 'GET',
+        headers: {
+            authorization: `Bearer ${userStore.token}`
+        }
+    }).catch(() => {
+        logout();
+    });
+})
+
+const logout = async () => {
+    await $fetch('/api/auth/logout', {
+        method: 'GET',
+        headers: {
+            authorization: `Bearer ${userStore.token}`
+        }
+    })
+    userStore.token = "";
+    router.push({ path: "/" })
+}
 
 const navigation = {
   categories: [

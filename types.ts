@@ -3,3 +3,8 @@ export type Product = {
   href: string,
   breadcrumbs: any[]
 }
+
+export type AuthToken = {
+  role: string,
+  name: string,
+}

@@ -1,5 +1,10 @@
 lockfileVersion: '6.0'
 
+dependencies:
+  jwt-decode:
+    specifier: ^3.1.2
+    version: 3.1.2
+
 devDependencies:
   '@headlessui/vue':
     specifier: ^1.7.8
@@ -2738,6 +2743,10 @@ packages:
     optionalDependencies:
       graceful-fs: 4.2.11
     dev: true
+
+  /jwt-decode@3.1.2:
+    resolution: {integrity: sha512-UfpWE/VZn0iP50d8cz9NrZLM9lSWhcJ+0Gt/nm4by88UL+J1SiKN8/5dkjMmbEzwL2CAe+67GsegCbIKtbp75A==}
+    dev: false
 
   /kleur@3.0.3:
     resolution: {integrity: sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==}
