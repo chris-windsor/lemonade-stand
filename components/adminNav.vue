@@ -343,9 +343,10 @@ const logout = async () => {
         headers: {
             authorization: `Bearer ${userStore.token}`
         }
-    })
-    userStore.token = "";
-    router.push({ path: "/" })
+    }).finally(() => {
+        userStore.token = "";
+        router.push({ path: "/" })
+    });
 }
 
 const navigation = {

@@ -33,7 +33,7 @@
                         <label class="ml-2 block text-sm text-gray-900" for="remember-me">Remember me</label>
                     </div>
                     <div class="text-sm">
-                        <a class="font-medium text-indigo-600 hover:text-indigo-500" href="#">Forgot your password?</a>
+                        <NuxtLink class="font-medium text-indigo-600 hover:text-indigo-500" to="/auth/inquirepasswordreset">Forgot your password?</NuxtLink>
                     </div>
                 </div>
                 <div>
@@ -81,9 +81,10 @@ const submitLogin = async () => {
             email: form.credentials.email,
             password: form.credentials.password
         }
+    }).finally(() => {
+        form.pending = false;
     })
     userStore.token = loginResponse.token;
-    form.pending = false;
     router.push({ path: "/account" })
 }
 

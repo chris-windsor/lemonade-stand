@@ -30,7 +30,14 @@ export default defineNuxtRouteMiddleware((to, from) => {
       return '/auth/signin';
     }
 
-    const isAdmin = jwtDecode<AuthToken>(userStore.token).role === "admin";
+    const token = jwtDecode<AuthToken>(userStore.token)
+    const now = Date.now();
+
+    if (token.exp * 1000 < now) {
+      return '/auth/signin';
+    }
+
+    const isAdmin = token.role === "admin";
 
     if (requestedLocationLayout === "admin" && !isAdmin) {
       return "/account";

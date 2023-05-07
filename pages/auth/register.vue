@@ -32,7 +32,7 @@
                 </div>
                 <div class="flex items-center justify-between">
                     <div class="text-sm">
-                        <a class="font-medium text-indigo-600 hover:text-indigo-500" href="#">Forgot your password?</a>
+                        <NuxtLink class="font-medium text-indigo-600 hover:text-indigo-500" to="/auth/inquirepasswordreset">Forgot your password?</NuxtLink>
                     </div>
                 </div>
                 <div>
@@ -80,8 +80,9 @@ const submitRegister = async () => {
       email: form.credentials.email,
       password: form.credentials.password
     }
+  }).finally(() => {
+      form.pending = false;
   })
-  form.pending = false;
   router.push({ path: "/auth/signin" })
 }
 </script>

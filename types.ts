@@ -7,4 +7,5 @@ export type Product = {
 export type AuthToken = {
   role: string,
   name: string,
+  exp: number
 }
