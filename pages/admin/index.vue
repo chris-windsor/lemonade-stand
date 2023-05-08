@@ -27,6 +27,7 @@
                 </div>
             </dl>
         </div>
+        <DataTable/>
     </div>
 </template>
 

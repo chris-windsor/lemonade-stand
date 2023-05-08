@@ -26,7 +26,6 @@
                                 </button>
                             </div>
 
-
                             <TabGroup as="div" class="mt-2">
                                 <div class="border-b border-gray-200">
                                     <TabList class="-mb-px flex space-x-8 px-4">
@@ -55,7 +54,7 @@
                                                         role="list">
                                                         <li v-for="item in category.featured" :key="item.name"
                                                             class="flex">
-                                                            <NuxtLink :to="item.href" class="text-gray-500">{{
+                                                            <NuxtLink :to="item.to" class="text-gray-500">{{
                                                                 item.name
                                                                 }}
                                                             </NuxtLink>
@@ -65,11 +64,12 @@
                                                 <div>
                                                     <p id="mobile-categories-heading" class="font-medium text-gray-900">
                                                         Categories</p>
-                                                    <ul aria-labelledby="mobile-categories-heading" class="mt-6 space-y-6"
+                                                    <ul aria-labelledby="mobile-categories-heading"
+                                                        class="mt-6 space-y-6"
                                                         role="list">
                                                         <li v-for="item in category.categories" :key="item.name"
                                                             class="flex">
-                                                            <NuxtLink :to="item.href" class="text-gray-500">{{
+                                                            <NuxtLink :to="item.to" class="text-gray-500">{{
                                                                 item.name
                                                                 }}
                                                             </NuxtLink>
@@ -81,11 +81,12 @@
                                                 <div>
                                                     <p id="mobile-collection-heading" class="font-medium text-gray-900">
                                                         Collection</p>
-                                                    <ul aria-labelledby="mobile-collection-heading" class="mt-6 space-y-6"
+                                                    <ul aria-labelledby="mobile-collection-heading"
+                                                        class="mt-6 space-y-6"
                                                         role="list">
                                                         <li v-for="item in category.collection" :key="item.name"
                                                             class="flex">
-                                                            <NuxtLink :to="item.href" class="text-gray-500">{{
+                                                            <NuxtLink :to="item.to" class="text-gray-500">{{
                                                                 item.name
                                                                 }}
                                                             </NuxtLink>
@@ -100,7 +101,7 @@
                                                         role="list">
                                                         <li v-for="item in category.brands" :key="item.name"
                                                             class="flex">
-                                                            <NuxtLink :to="item.href" class="text-gray-500">{{
+                                                            <NuxtLink :to="item.to" class="text-gray-500">{{
                                                                 item.name
                                                                 }}
                                                             </NuxtLink>
@@ -115,9 +116,10 @@
 
                             <div class="space-y-6 border-t border-gray-200 py-6 px-4">
                                 <div v-for="page in navigation.pages" :key="page.name" class="flow-root">
-                                    <a :href="page.href" class="-m-2 block p-2 font-medium text-gray-900">{{
+                                    <NuxtLink :to="page.to" class="-m-2 block p-2 font-medium text-gray-900">{{
                                         page.name
-                                        }}</a>
+                                        }}
+                                    </NuxtLink>
                                 </div>
                             </div>
                         </DialogPanel>
@@ -179,7 +181,7 @@
                                                                                 role="list">
                                                                                 <li v-for="item in category.inventory"
                                                                                     :key="item.name" class="flex">
-                                                                                    <NuxtLink :to="item.href"
+                                                                                    <NuxtLink :to="item.to"
                                                                                               class="hover:text-gray-800">
                                                                                         {{
                                                                                         item.name
@@ -197,7 +199,7 @@
                                                                                 role="list">
                                                                                 <li v-for="item in category.discounts"
                                                                                     :key="item.name" class="flex">
-                                                                                    <NuxtLink :to="item.href"
+                                                                                    <NuxtLink :to="item.to"
                                                                                               class="hover:text-gray-800">
                                                                                         {{
                                                                                         item.name
@@ -217,7 +219,7 @@
                                                                                 role="list">
                                                                                 <li v-for="item in category.collection"
                                                                                     :key="item.name" class="flex">
-                                                                                    <NuxtLink :to="item.href"
+                                                                                    <NuxtLink :to="item.to"
                                                                                               class="hover:text-gray-800">
                                                                                         {{
                                                                                         item.name
@@ -236,7 +238,7 @@
                                                                                 role="list">
                                                                                 <li v-for="item in category.brands"
                                                                                     :key="item.name" class="flex">
-                                                                                    <NuxtLink :to="item.href"
+                                                                                    <NuxtLink :to="item.to"
                                                                                               class="hover:text-gray-800">
                                                                                         {{
                                                                                         item.name
@@ -253,7 +255,7 @@
                                                 </transition>
                                             </Popover>
 
-                                            <a v-for="page in navigation.pages" :key="page.name" :href="page.href"
+                                            <a v-for="page in navigation.pages" :key="page.name" :to="page.to"
                                                class="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">{{
                                                 page.name
                                                 }}</a>
@@ -286,7 +288,8 @@
                                     <div class="flex items-center lg:ml-8">
                                         <div class="flex space-x-8">
                                             <div class="lg:flex">
-                                                <a class="-m-2 p-2 text-gray-400 hover:text-gray-500" @click.prevent="logout">
+                                                <a class="-m-2 p-2 text-gray-400 hover:text-gray-500"
+                                                   @click.prevent="logout">
                                                     <span class="sr-only">Logout</span>
                                                     <ArrowRightOnRectangleIcon aria-hidden="true" class="h-6 w-6"/>
                                                 </a>
@@ -306,19 +309,19 @@
 <script setup>
 import {ref} from 'vue'
 import {
-    Dialog,
-    DialogPanel,
-    Popover,
-    PopoverButton,
-    PopoverGroup,
-    PopoverPanel,
-    Tab,
-    TabGroup,
-    TabList,
-    TabPanel,
-    TabPanels,
-    TransitionChild,
-    TransitionRoot,
+  Dialog,
+  DialogPanel,
+  Popover,
+  PopoverButton,
+  PopoverGroup,
+  PopoverPanel,
+  Tab,
+  TabGroup,
+  TabList,
+  TabPanel,
+  TabPanels,
+  TransitionChild,
+  TransitionRoot,
 } from '@headlessui/vue'
 import {ArrowRightOnRectangleIcon, Bars3Icon, MagnifyingGlassIcon, XMarkIcon} from '@heroicons/vue/24/outline'
 import {useUserStore} from "~/stores/user";
@@ -327,26 +330,26 @@ const router = useRouter();
 const userStore = useUserStore()
 
 onMounted(() => {
-    $fetch('/api/users/me', {
-        method: 'GET',
-        headers: {
-            authorization: `Bearer ${userStore.token}`
-        }
-    }).catch(() => {
-        logout();
-    });
+  $fetch('/api/users/me', {
+    method: 'GET',
+    headers: {
+      authorization: `Bearer ${userStore.token}`
+    }
+  }).catch(() => {
+    logout();
+  });
 })
 
 const logout = async () => {
-    await $fetch('/api/auth/logout', {
-        method: 'GET',
-        headers: {
-            authorization: `Bearer ${userStore.token}`
-        }
-    }).finally(() => {
-        userStore.token = "";
-        router.push({ path: "/" })
-    });
+  await $fetch('/api/auth/logout', {
+    method: 'GET',
+    headers: {
+      authorization: `Bearer ${userStore.token}`
+    }
+  }).finally(() => {
+    userStore.token = "";
+    router.push({path: "/"})
+  });
 }
 
 const navigation = {
@@ -354,54 +357,54 @@ const navigation = {
     {
       name: 'Store',
       inventory: [
-        {name: 'Products', href: '#'},
-        {name: 'Shipments', href: '#'},
-        {name: 'Returns', href: '#'},
+        {name: 'Products', to: '/admin/products'},
+        {name: 'Shipments', to: '#'},
+        {name: 'Returns', to: '#'},
       ],
       discounts: [
-        {name: 'Coupons', href: '#'},
-        {name: 'Sales', href: '#'},
-        {name: 'Bundles', href: '#'},
-        {name: 'Retention', href: '#'},
+        {name: 'Coupons', to: '#'},
+        {name: 'Sales', to: '#'},
+        {name: 'Bundles', to: '#'},
+        {name: 'Retention', to: '#'},
       ],
       shipping: [
-        {name: 'Rates', href: '#'},
-        {name: 'Sales', href: '#'},
-        {name: 'Bundles', href: '#'},
-        {name: 'Retention', href: '#'},
+        {name: 'Rates', to: '#'},
+        {name: 'Sales', to: '#'},
+        {name: 'Bundles', to: '#'},
+        {name: 'Retention', to: '#'},
       ]
     },
     {
       name: 'Analytics',
       featured: [
-        {name: 'Casual', href: '#'},
-        {name: 'Boxers', href: '#'},
-        {name: 'Outdoor', href: '#'},
+        {name: 'Casual', to: '#'},
+        {name: 'Boxers', to: '#'},
+        {name: 'Outdoor', to: '#'},
       ],
       collection: [
-        {name: 'Everything', href: '#'},
-        {name: 'Core', href: '#'},
-        {name: 'New Arrivals', href: '#'},
-        {name: 'Sale', href: '#'},
+        {name: 'Everything', to: '#'},
+        {name: 'Core', to: '#'},
+        {name: 'New Arrivals', to: '#'},
+        {name: 'Sale', to: '#'},
       ],
       categories: [
-        {name: 'Artwork Tees', href: '#'},
-        {name: 'Pants', href: '#'},
-        {name: 'Accessories', href: '#'},
-        {name: 'Boxers', href: '#'},
-        {name: 'Basic Tees', href: '#'},
+        {name: 'Artwork Tees', to: '#'},
+        {name: 'Pants', to: '#'},
+        {name: 'Accessories', to: '#'},
+        {name: 'Boxers', to: '#'},
+        {name: 'Basic Tees', to: '#'},
       ],
       brands: [
-        {name: 'Significant Other', href: '#'},
-        {name: 'My Way', href: '#'},
-        {name: 'Counterfeit', href: '#'},
-        {name: 'Re-Arranged', href: '#'},
-        {name: 'Full Nelson', href: '#'},
+        {name: 'Significant Other', to: '#'},
+        {name: 'My Way', to: '#'},
+        {name: 'Counterfeit', to: '#'},
+        {name: 'Re-Arranged', to: '#'},
+        {name: 'Full Nelson', to: '#'},
       ],
     },
   ],
   pages: [
-    {name: 'Settings', href: '#'},
+    {name: 'Settings', to: '#'},
   ],
 }
 
