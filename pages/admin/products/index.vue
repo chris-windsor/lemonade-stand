@@ -120,7 +120,8 @@ const submitForm = async () => {
       authorization: `Bearer ${userStore.token}`
     },
     body: {
-      ...form.newProduct
+      ...form.newProduct,
+      image_id: fileUpload.filePreviews[0]
     }
   }).finally(() => {
     form.pending = false;
