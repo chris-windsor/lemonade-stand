@@ -9,7 +9,7 @@
                             <h1 class="text-xl font-medium text-gray-900">{{ product.name }}</h1>
                             <p class="text-xl font-medium text-gray-900">${{ product.price }}</p>
                         </div>
-                        <div class="mt-4">
+                        <div v-if="product.rating" class="mt-4">
                             <h2 class="sr-only">Reviews</h2>
                             <div class="flex items-center">
                                 <p class="text-sm text-gray-700">
@@ -98,7 +98,7 @@
 
                             <div class="prose prose-sm mt-4 text-gray-500">
                                 <ul role="list">
-                                    <li v-for="item in product.details" :key="item">{{ item }}</li>
+                                    <li v-for="item in product2.details" :key="item">{{ item }}</li>
                                 </ul>
                             </div>
                         </div>
@@ -119,8 +119,8 @@
                         </section>
                     </div>
                 </div>
-                <Reviews/>
-                <RelatedProducts/>
+                <Reviews v-if="product.ratings"/>
+                <RelatedProducts v-if="relatedProducts"/>
             </div>
         </div>
     </div>
@@ -145,15 +145,14 @@ const productId = route.params.id;
 const { data } = await useRetrieve(`/api/product/${productId}`).catch(err => console.error);
 const { product } = data?.value || {};
 const productImages = [product.img].map((image, imageIndex) => ({
-    id: imageIndex,
-    primary: imageIndex === 0,
-    imageSrc: image ? 'https://lemonseeds.s3.us-east-2.amazonaws.com/' + image : 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg',
-    imageAlt: 'Tall slender porcelain bottle with natural clay textured body and cork stopper.',
+  id: imageIndex,
+  primary: imageIndex === 0,
+  imageSrc: image ? 'https://lemonseeds.s3.us-east-2.amazonaws.com/' + image : 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg',
+  imageAlt: 'Tall slender porcelain bottle with natural clay textured body and cork stopper.',
 }));
 
 const product2 = {
-  name: 'Basic Tee',
-  price: '$35',
+  ...product,
   rating: 3.9,
   reviewCount: 512,
   href: '#',
