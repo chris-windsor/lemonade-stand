@@ -22,7 +22,7 @@
 import {useRetrieve} from "~/composables/useRetrieve";
 
 const { data } = await useRetrieve(`/api/products?offset=0&limit=5`).catch(err => console.error);
-const { products, pageCount } = data.value;
+const { products = [], pageCount = 0 } = data?.value || {};
 
 const productList = products.map(product => ({
   ...product,

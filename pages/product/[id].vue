@@ -1,13 +1,13 @@
 <template>
     <div class="bg-white">
         <div class="pt-6 pb-16 sm:pb-24">
-            <Breadcrumbs :product="product"/>
+            <Breadcrumbs :product="product2"/>
             <div class="mx-auto mt-8 max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
                 <div class="lg:grid lg:auto-rows-min lg:grid-cols-12 lg:gap-x-8">
                     <div class="lg:col-span-5 lg:col-start-8">
                         <div class="flex justify-between">
-                            <h1 class="text-xl font-medium text-gray-900">{{ wonky.title }}</h1>
-                            <p class="text-xl font-medium text-gray-900">${{ wonky.price }}</p>
+                            <h1 class="text-xl font-medium text-gray-900">{{ product.name }}</h1>
+                            <p class="text-xl font-medium text-gray-900">${{ product.price }}</p>
                         </div>
                         <div class="mt-4">
                             <h2 class="sr-only">Reviews</h2>
@@ -34,7 +34,7 @@
                         <h2 class="sr-only">Images</h2>
 
                         <div class="grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-3 lg:gap-8">
-                            <img v-for="image in product.images" :key="image.id" :alt="image.imageAlt"
+                            <img v-for="image in productImages" :key="image.id" :alt="image.imageAlt"
                                  :class="[image.primary ? 'lg:col-span-2 lg:row-span-2' : 'hidden lg:block', 'rounded-lg']"
                                  :src="image.imageSrc"/>
                         </div>
@@ -46,7 +46,7 @@
                                 <RadioGroup v-model="selectedColor" class="mt-2">
                                     <RadioGroupLabel class="sr-only"> Choose a color</RadioGroupLabel>
                                     <div class="flex items-center space-x-3">
-                                        <RadioGroupOption v-for="color in product.colors" :key="color.name"
+                                        <RadioGroupOption v-for="color in product2.colors" :key="color.name"
                                                           v-slot="{ active, checked }" :value="color"
                                                           as="template">
                                             <div
@@ -71,7 +71,8 @@
                                 <RadioGroup v-model="selectedSize" class="mt-2">
                                     <RadioGroupLabel class="sr-only"> Choose a size</RadioGroupLabel>
                                     <div class="grid grid-cols-3 gap-3 sm:grid-cols-6">
-                                        <RadioGroupOption v-for="size in product.sizes" :key="size.name" v-slot="{ active, checked }"
+                                        <RadioGroupOption v-for="size in product2.sizes" :key="size.name"
+                                                          v-slot="{ active, checked }"
                                                           :disabled="!size.inStock"
                                                           :value="size" as="template">
                                             <div
@@ -88,12 +89,12 @@
                             </button>
                         </form>
                         <div class="mt-10">
-                            <h2 class="text-sm font-medium text-gray-900">Description</h2>
+                            <h2 class="text-sm font-medium text-gray-900">Additional Details</h2>
 
                             <div class="prose prose-sm mt-4 text-gray-500" v-html="product.description"/>
                         </div>
                         <div class="mt-8 border-t border-gray-200 pt-8">
-                            <h2 class="text-sm font-medium text-gray-900">Fabric &amp; Care</h2>
+                            <h2 class="text-sm font-medium text-gray-900">Why buy here?</h2>
 
                             <div class="prose prose-sm mt-4 text-gray-500">
                                 <ul role="list">
@@ -133,19 +134,24 @@ import {CurrencyDollarIcon, GlobeAmericasIcon} from '@heroicons/vue/24/outline'
 import Reviews from "../../components/reviews";
 import RelatedProducts from "../../components/relatedProducts";
 import Breadcrumbs from "../../components/breadcrumbs";
+import {useRetrieve} from "~/composables/useRetrieve";
 
 definePageMeta({
-  layout: "store",
-  validate: async (route) => {
-    return /^\d+$/.test(route.params.id)
-  }
+  layout: "store"
 })
 const route = useRoute();
 
 const productId = route.params.id;
-let {data: wonky} = await $fetch(`http://127.0.0.1:4567/product/${productId}`);
+const { data } = await useRetrieve(`/api/product/${productId}`).catch(err => console.error);
+const { product } = data?.value || {};
+const productImages = [product.img].map((image, imageIndex) => ({
+    id: imageIndex,
+    primary: imageIndex === 0,
+    imageSrc: image ? 'https://lemonseeds.s3.us-east-2.amazonaws.com/' + image : 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg',
+    imageAlt: 'Tall slender porcelain bottle with natural clay textured body and cork stopper.',
+}));
 
-const product = {
+const product2 = {
   name: 'Basic Tee',
   price: '$35',
   rating: 3.9,
@@ -203,6 +209,6 @@ const policies = [
   {name: 'Loyalty rewards', icon: CurrencyDollarIcon, description: "Don't look at other tees"},
 ]
 
-const selectedColor = ref(product.colors[0])
-const selectedSize = ref(product.sizes[2])
+const selectedColor = ref(product2.colors[0])
+const selectedSize = ref(product2.sizes[2])
 </script>
