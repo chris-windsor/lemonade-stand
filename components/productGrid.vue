@@ -8,7 +8,7 @@
                           class="group">
                     <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-w-7 xl:aspect-h-8">
                         <img :alt="product.imageAlt" :src="product.imageSrc"
-                             class="h-full w-full object-cover object-center group-hover:opacity-75"/>
+                             class="h-full w-full object-contain object-center group-hover:opacity-75 mix-blend-multiply"/>
                     </div>
                     <h3 class="mt-4 text-sm text-gray-700">{{ product.name }}</h3>
                     <p class="mt-1 text-lg font-medium text-gray-900">${{ product.price }}</p>
@@ -26,7 +26,7 @@ const { products = [], pageCount = 0 } = data?.value || {};
 
 const productList = products.map(product => ({
   ...product,
-  imageSrc: product.img !== '' ? 'https://lemonseeds.s3.us-east-2.amazonaws.com/' + product.img : 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg',
+  imageSrc: `https://lemonseeds.s3.us-east-2.amazonaws.com/${product.img !== '' ? product.img : 'unknown'}`,
   imageAlt: 'Tall slender porcelain bottle with natural clay textured body and cork stopper.',
 }))
 </script>

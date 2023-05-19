@@ -9,6 +9,7 @@ export const useUserStore = defineStore('user', {
   state: () => {
     return {
       token: '',
+      cart: []
     }
   },
   persist: {

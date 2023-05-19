@@ -84,7 +84,7 @@
                                 </RadioGroup>
                             </div>
                             <button class="mt-8 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                                    type="submit">
+                                    type="submit" @click.prevent="addToCart">
                                 Add to cart
                             </button>
                         </form>
@@ -139,6 +139,8 @@ import {useRetrieve} from "~/composables/useRetrieve";
 definePageMeta({
   layout: "store"
 })
+
+const userStore = useUserStore()
 const route = useRoute();
 
 const productId = route.params.id;
@@ -147,9 +149,13 @@ const { product } = data?.value || {};
 const productImages = [product.img].map((image, imageIndex) => ({
   id: imageIndex,
   primary: imageIndex === 0,
-  imageSrc: image ? 'https://lemonseeds.s3.us-east-2.amazonaws.com/' + image : 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg',
+  imageSrc: `https://lemonseeds.s3.us-east-2.amazonaws.com/${image !== '' ? image : 'unknown'}`,
   imageAlt: 'Tall slender porcelain bottle with natural clay textured body and cork stopper.',
 }));
+
+const addToCart = () => {
+  userStore.cart.push(product);
+}
 
 const product2 = {
   ...product,
